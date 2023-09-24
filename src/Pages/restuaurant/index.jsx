@@ -31,7 +31,7 @@ const Restaurant = () => {
       }
 
       const info = data?.data?.cards[0]?.card?.card?.info;
-      setMenuCards(menuCards);
+      menuCards && setMenuCards(menuCards);
       info && setInfo(info);
       setLoading(false);
     } catch (error) {
@@ -49,11 +49,11 @@ const Restaurant = () => {
     <div>
       {loading && <ShimmerUI />}
 
-      {info && (
+      {menuCards.length > 0 && (
         <>
           <RestaurantHeader {...info} />
           {menuCards.map((menuCard, indx) => (
-            <RestaurantMenuCard {...menuCard} key={indx} />
+            <RestaurantMenuCard {...menuCard} key={indx} show={indx == 0} />
           ))}
         </>
       )}

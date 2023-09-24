@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import ItemCard from "./ItemCard";
 import { AiFillDownCircle, AiFillUpCircle } from "react-icons/ai";
-const RestaurantMenuCard = ({ title, itemCards }) => {
+const RestaurantMenuCard = ({ title, itemCards, show = false }) => {
   const RECOMMENDED = "Recommended";
-  const [showItems, setShowItems] = useState(title == RECOMMENDED);
 
-  console.log(title, itemCards);
+  const [showItems, setShowItems] = useState(show);
   return (
     <div className=" space-x-5  my-4">
       <div className="flex justify-between items-center text-2xl text-white bg-yellow-600 border font-semibold p-3 rounded-md">

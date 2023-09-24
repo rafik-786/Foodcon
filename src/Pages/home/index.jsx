@@ -7,8 +7,10 @@ import Restaurants from "../../Components/Restaurants/Restaurants";
 
 const HomePage = () => {
   const [restaurants, SetRestaurants] = useState([]);
+  const [filterRestaurant, setFilterRestaurant] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     getRestaurants();
@@ -31,7 +33,7 @@ const HomePage = () => {
       }
 
       SetRestaurants(result);
-
+      setFilterRestaurant(result);
       setLoading(false);
       setError(false);
     } catch (error) {
@@ -41,12 +43,24 @@ const HomePage = () => {
     }
   };
 
+  useEffect(() => {
+    const filteredData = [];
+    if (restaurants.length > 0) {
+      for (const restaurant of restaurants) {
+        if (restaurant.info?.name?.toLowerCase().includes(searchText))
+          filteredData.push(restaurant);
+      }
+      setFilterRestaurant(filteredData);
+    } else {
+    }
+  }, [searchText]);
+
   return (
     <div className="my-4">
-      <Searchbar />
+      <Searchbar searchText={searchText} setSearchText={setSearchText} />
 
       {loading && <ShimmerUI />}
-      {restaurants.length > 0 && <Restaurants restaurants={restaurants} />}
+      {restaurants.length > 0 && <Restaurants restaurants={filterRestaurant} />}
     </div>
   );
 };
