@@ -6,7 +6,7 @@ const CartItemCard = ({ id, name, price, imageId, quantity }) => {
   const { state, dispatch } = useCart();
 
   return (
-    <div className="flex shadow-md justify-between py-2  items-center rounded-lg space-x-5">
+    <div className="flex shadow-md justify-between px-5 py-2  items-center rounded-lg space-x-5 border">
       <div className="flex  ">
         <div className="w-32 m-2">
           <img className="rounded-lg" src={IMAGE_CDN_URI + imageId} />
