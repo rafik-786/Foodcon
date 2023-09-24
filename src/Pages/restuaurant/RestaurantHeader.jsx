@@ -11,7 +11,7 @@ const RestaurantHeader = ({
   city,
   cloudinaryImageId,
   locality,
-  costForTwo,
+  costForTwo = 100,
   avgRating,
   totalRatings,
 }) => {
@@ -42,7 +42,12 @@ const RestaurantHeader = ({
           <span>
             <BiRupee />
           </span>
-          <span>{costForTwo / 100} Cost for two</span>
+          <span>
+            <span className="font-bold text-lg text-yellow-600">
+              {costForTwo / 100}
+            </span>{" "}
+            Cost for two
+          </span>
         </p>
         <p className="flex items-center space-x-2 up text-green-600">
           <span>

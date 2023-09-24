@@ -4,6 +4,8 @@ import { RESTAURANT_MENU_URI } from "../../config";
 import axios from "axios";
 import ShimmerUI from "../../Components/ShimmerUI/ShimmerUI";
 import RestaurantHeader from "./RestaurantHeader";
+import RestaurantMenuCards from "./RestaurantMenuCard";
+import RestaurantMenuCard from "./RestaurantMenuCard";
 
 const Restaurant = () => {
   const [menuCards, setMenuCards] = useState([]);
@@ -43,9 +45,6 @@ const Restaurant = () => {
     getRestaurantMenu();
   }, []);
 
-  // console.log("Menu:", menuCards);
-  console.log("Info:", info);
-
   return (
     <div>
       {loading && <ShimmerUI />}
@@ -53,6 +52,9 @@ const Restaurant = () => {
       {info && (
         <>
           <RestaurantHeader {...info} />
+          {menuCards.map((menuCard, indx) => (
+            <RestaurantMenuCard {...menuCard} key={indx} />
+          ))}
         </>
       )}
     </div>
