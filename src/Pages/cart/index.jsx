@@ -1,6 +1,6 @@
 import React from "react";
 import useCart from "../../Hooks/useCart";
-import CartItemCard from "./cartItemCard";
+import CartItemCard from "./CartItemCard";
 
 const CartPage = () => {
   const {
