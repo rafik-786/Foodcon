@@ -30,7 +30,7 @@ const CartPage = () => {
             </div>
             <div className="bg-yellow-200  w-[20%] border-2 border-gray-600 h-fit">
               <h1 className="text-center text-xl font-bold text-yellow-800 p-2 border-b-2 border-gray-600">
-                Summary
+                Order Summary
               </h1>
               <div className="p-2">
                 <p className="font-bold">
