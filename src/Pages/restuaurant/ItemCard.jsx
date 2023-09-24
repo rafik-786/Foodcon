@@ -3,6 +3,8 @@ import { IMAGE_CDN_URI } from "../../config";
 
 import { BiRupee } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
+import useCart from "../../Hooks/useCart";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../../context/cartReducer";
 
 const ItemCard = ({
   id,
@@ -11,6 +13,7 @@ const ItemCard = ({
   price = Math.floor(Math.random() * 10000),
   ratings,
 }) => {
+  const { state, dispatch } = useCart();
   return (
     <div className="flex justify-between items-center border px-2">
       <div className="flex  space-x-5  py-2 px-2 ">
@@ -37,9 +40,36 @@ const ItemCard = ({
           </p>
         </div>
       </div>
-      <button className="bg-green-600 w-fit h-fit text-white p-2 rounded-md  shadow-lg hover:shadow-2xl">
-        ADD
-      </button>
+      {state.cartItems.some((item) => item.id == id) ? (
+        <button
+          className="bg-red-600 w-fit h-fit text-white p-2 rounded-md  shadow-lg hover:shadow-2xl"
+          onClick={() => {
+            dispatch({
+              type: REMOVE_FROM_CART,
+              payload: id,
+            });
+          }}
+        >
+          REMOVE FROM CART
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            dispatch({
+              type: ADD_TO_CART,
+              payload: {
+                id,
+                name,
+                imageId,
+                price,
+              },
+            });
+          }}
+          className="bg-green-600 w-fit h-fit text-white p-2 rounded-md  shadow-lg hover:shadow-2xl"
+        >
+          ADD
+        </button>
+      )}
     </div>
   );
 };
