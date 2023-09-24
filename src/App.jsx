@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div className="h-screen flex flex-col ">
       <Header />
-      <main className="mb-auto w-[85%] mx-auto">
+      <main className="mb-auto w-[85%] mx-auto py-5">
         <Outlet />
       </main>
       <Footer />

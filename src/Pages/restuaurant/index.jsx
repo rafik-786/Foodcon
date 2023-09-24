@@ -2,22 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { RESTAURANT_MENU_URI } from "../../config";
 import axios from "axios";
+import ShimmerUI from "../../Components/ShimmerUI/ShimmerUI";
+import RestaurantHeader from "./RestaurantHeader";
 
 const Restaurant = () => {
-  const [menu, setMenu] = useState([]);
+  const [menuCards, setMenuCards] = useState([]);
+  const [info, setInfo] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const { id } = useParams();
-  console.log(id);
 
   const getRestaurantMenu = async () => {
     try {
+      setLoading(true);
       const { data } = await axios(RESTAURANT_MENU_URI + id);
 
-      let menu;
-      const cards = data.data.cards;
-      console.log(cards);
+      const menuCards = [];
+      const itemCard =
+        data?.data?.cards[2]?.groupedCard.cardGroupMap.REGULAR.cards;
+
+      for (let item of itemCard) {
+        if (item?.card?.card?.itemCards) {
+          menuCards.push(item?.card?.card);
+        }
+      }
+
+      const info = data?.data?.cards[0]?.card?.card?.info;
+      setMenuCards(menuCards);
+      info && setInfo(info);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setError(true);
+      setLoading(false);
     }
   };
 
@@ -25,7 +43,20 @@ const Restaurant = () => {
     getRestaurantMenu();
   }, []);
 
-  return <div></div>;
+  // console.log("Menu:", menuCards);
+  console.log("Info:", info);
+
+  return (
+    <div>
+      {loading && <ShimmerUI />}
+
+      {info && (
+        <>
+          <RestaurantHeader {...info} />
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Restaurant;
